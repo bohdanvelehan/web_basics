@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Пошук автодеталей</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+        }
+
+        header {
+            background-color: #1e2a38;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .search-container {
+            margin: 30px auto;
+            max-width: 600px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-container input {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-container button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #ff9800;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #e68900;
+        }
+
+        .results {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .part {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 15px;
+            text-align: center;
+            background-color: #1e2a38;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Пошук автодеталей</h1>
+    <p>Знайдіть деталі для вашого автомобіля швидко та зручно</p>
+</header>
+
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Введіть назву деталі або авто...">
+    <button onclick="searchParts()">Пошук</button>
+</div>
+
+<div class="results" id="results"></div>
+
+<footer>
+    <p>© 2025 Автодеталі Онлайн</p>
+</footer>
+
+<script>
+    const parts = [
+        { name: "Гальмівні колодки", car: "Toyota", price: "1200 грн" },
+        { name: "Масляний фільтр", car: "BMW", price: "450 грн" },
+        { name: "Повітряний фільтр", car: "Audi", price: "500 грн" },
+        { name: "Свічки запалювання", car: "Volkswagen", price: "800 грн" }
+    ];
+
+    function searchParts() {
+        const query = document.getElementById("searchInput").value.toLowerCase();
+        const resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = "";
+
+        const filteredParts = parts.filter(part =>
+            part.name.toLowerCase().includes(query) ||
+            part.car.toLowerCase().includes(query)
+        );
+
+        if (filteredParts.length === 0) {
+            resultsDiv.innerHTML = "<p>Нічого не знайдено</p>";
+            return;
+        }
+
+        filteredParts.forEach(part => {
+            const div = document.createElement("div");
+            div.className = "part";
+            div.innerHTML = `
+                <h3>${part.name}</h3>
+                <p>Авто: ${part.car}</p>
+                <p>Ціна: ${part.price}</p>
+            `;
+            resultsDiv.appendChild(div);
+        });
+    }
+</script>
+
+</body>
+</html>
